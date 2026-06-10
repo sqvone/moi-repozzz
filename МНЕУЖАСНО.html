@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всё о Майнкрафт | Creeper_Monster_45</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #ccc;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* псевдоэлементы */
+        ::selection {
+            background-color: #ff6600;
+            color: #fff;
+        }
+
+        .section-title-1::before {
+            content: "⛏️ ";
+        }
+
+        .header {
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .site-title {
+            color: #fff;
+            font-size: 2.2rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #999;
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background-color: #ff6600;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 102, 0, 0.3);
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .main-content {
+            background-color: #2d2d2d;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+            border: 1px solid #444;
+            overflow: hidden;
+        }
+
+        .section-title-1 {
+            color: #ff6600;
+            font-size: 1.8rem;
+            margin: 0 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        /* главная */
+        .content-block p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .features-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-item {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #333;
+            border-left: 4px solid #ff6600;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background-color: #404040;
+            transform: translateX(5px);
+        }
+
+        /* галерея */
+        .controls-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #333;
+            border-radius: 8px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: #444;
+            color: #ccc;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #ff6600;
+            color: #fff;
+            border-color: #ff6600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .image-card {
+            background: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #444;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.8);
+            border-color: #ff6600;
+        }
+
+        .image-card.hidden {
+            display: none;
+        }
+
+        .card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-card:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .like-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: 1px solid #ff6600;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .like-btn:hover, .like-btn.liked {
+            background: #ff6600;
+            color: #fff;
+        }
+
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            color: #ff6600;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        /* контакты */
+        .profile-card {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            background-color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border-left: 5px solid #ff6600;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            font-size: 80px;
+            color: #ff6600;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .profile-details h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .profile-details p {
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .profile-details a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        .profile-details a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background-color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .form-group label.required::after {
+            content: " *";
+            color: #ff4444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 4px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff6600;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+        }
+
+        .form-group input:required,
+        .form-group textarea:required {
+            border-left: 3px solid #ff6600;
+        }
+
+        .form-group-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .form-group-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #ff6600;
+            cursor: pointer;
+        }
+
+        .form-group-checkbox input[type="checkbox"]:checked + label {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6600, #cc5200);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #ff8533, #ff6600);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .faq-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid transparent;
+        }
+
+        .faq-list li:nth-child(odd) {
+            background-color: #3a3a3a;
+            border-left-color: #ff6600;
+        }
+
+        .faq-list li:nth-child(even) {
+            background-color: #333;
+            border-left-color: #4caf50;
+        }
+
+        .faq-list li strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: #2d2d2d;
+            margin: 3% auto;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 1400px;
+            width: 95%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid #444;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #555;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #ff6600;
+        }
+
+        .close-modal {
+            color: #999;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #ff6600;
+            transform: scale(1.1);
+        }
+
+        .text-modal-content {
+            max-width: 800px;
+        }
+
+        .version-timeline {
+            list-style: none;
+            padding: 0;
+        }
+
+        .version-timeline li {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #333;
+            border-left: 4px solid #ff6600;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .version-timeline li strong {
+            color: #ff6600;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #444;
+            margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .nav-list {
+                gap: 10px;
+            }
+
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                margin: 5% auto;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="site-title">Всё о Майнкрафт</h1>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a class="nav-link active" onclick="showSection('home', this)">Главная</a></li>
+                    <li><a class="nav-link" onclick="openGalleryModal()">Галерея</a></li>
+                    <li><a class="nav-link" onclick="showSection('contacts', this)">Контакты</a></li>
+                    <li><a class="nav-link" onclick="openModal('historyModal')">История версий</a></li>
+                    <li><a class="nav-link" onclick="openModal('topGamesModal')">Топ игр</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- испр id home-->
+        <section id="home" class="page-section active">
+            <div class="main-content">
+                <section class="intro-section">
+                    <h2 class="section-title-1">Добро пожаловать!</h2>
+                    <div class="content-block">
+                        <p>Этот сайт посвящен моей(и не только моей) любимой игре Майнкрафт!</p>
+                        <p>Для многих видеоигры являются целой жизнью. Но не каждая виртуальная вселенная способна заполнить время и душу человека.</p>
+                        <p>На этом блоге я постараюсь раскрыть для вас всю прелесть игры Майнкрафт, чтобы вы тоже заинтересовались этой прекрасной вселенной.</p>
+                    </div>
+                    
+                    <h2 class="section-title-1">Почему Майнкрафт — это жизнь?</h2>
+                    <div class="content-block">
+                        <ul class="features-list">
+                            <li class="feature-item">Майнкрафт — бесконечный мир из блоков.</li>
+                            <li class="feature-item">Десятки биомов ждут тебя: от солнечных равнин и густых лесов до опасных пещер и далёких островов.</li>
+                            <li class="feature-item">Собирай ресурсы — руби деревья, добывай камень и руду, чтобы создавать инструменты и строить убежище до наступления ночи.</li>
+                            <li class="feature-item">Ночью вылезают зомби, скелеты и криперы — защищайся или спрячься, пока не взойдёт солнце.</li>
+                            <li class="feature-item">Майнкрафт — мир без ограничений. Возводи здания, создавай механизмы или меняй ландшафт. Все пиксельной эстетике.</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section id="contacts" class="page-section">
+            <div class="main-content">
+                <h2 class="section-title-1">Контактная информация</h2>
+                
+                <div class="profile-card">
+                    <div class="profile-avatar">👾</div>
+                    <div class="profile-details">
+                        <h2>Creeper_Monster_45</h2>
+                        <p><strong>Специализация:</strong> Главный Вайб-ценитель и билдер Майнкрафт</p>
+                        <p><strong>Email:</strong> <a href="mailto:coolMinecrafter2009@games.ru">coolMinecrafter2009@games.ru</a></p>
+                        <p><strong>Локация:</strong> Воронеж, Россия</p>
+                        <p><strong>Соцсети:</strong> 
+                            <a href="#">Discord</a> | 
+                            <a href="#">Telegram</a> | 
+                            <a href="#">VK</a>
+                        </p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <h3 style="color: #ff6600; margin-bottom: 10px;">Написать мне</h3>
+                    <p style="margin-bottom: 20px; color: #999; font-size: 0.9rem;">Поля, отмеченные *, обязательны для заполнения.</p>
+                    
+                    <div class="form-group">
+                        <label for="name" class="required">Имя</label>
+                        <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Тема сообщения</label>
+                        <select id="subject" name="subject">
+                            <option value="suggestion">Предложение</option>
+                            <option value="question">Вопрос по сайту</option>
+                            <option value="bug">Нашел баг</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="required">Сообщение</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Напишите ваше сообщение здесь..." required></textarea>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">Я согласен на обработку персональных данных</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                </form>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                    <div>
+                        <h3 class="section-title-1">График ответов</h3>
+                        <p>Пн-Пт: с 9:00 до 21:00</p>
+                        <p>Сб-Вс: с 12:00 до 00:00</p>
+                    </div>
+                    <div>
+                        <h3 class="section-title-1">Часто спрашивают (Q&A)</h3>
+                        <ul class="faq-list">
+                            <li>
+                                <strong>В: Как полюбить Майнкрафт?</strong>
+                                А: Любовь - это взаимность. Играй в Майнкрафт, он поиграет с тобой!
+                            </li>
+                            <li>
+                                <strong>В: Почему Майнкрафт так прекрасен?</strong>
+                                А: Потому что он дает безграничную свободу творчества.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Creeper_Monster_45. Все права защищены(не) </p>
+        </div>
+    </footer>
+
+    <!-- галерея -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Фотогалерея Майнкрафт</h2>
+                <span class="close-modal" onclick="closeGalleryModal()">&times;</span>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="stats">
+                    <span>Изображений: <strong id="image-counter">0</strong></span> | 
+                    <span>Всего лайков: <strong id="total-likes">0</strong></span>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="overworld">Верхний мир</button>
+                    <button class="filter-btn" data-filter="nether">Незер</button>
+                    <button class="filter-btn" data-filter="end">Эндер</button>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="image-gallery">
+                <article class="image-card" data-category="overworld">
+                    <div class="card-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvl_6ldm9hljhYZ37hAsgO0r-q6v_LWHd-4-PL5s0NgQ&s=10" alt="Пейзаж Верхнего мира" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="1">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Верхний мир</h3>
+                        <p>Обычный мир — деревья, леса, реки, пещеры. Знакомый пейзаж встречает тебя воксельной графикой.</p>
+                    </div>
+                </article>
+
+                <article class="image-card" data-category="nether">
+                    <div class="card-image">
+                        <img src="https://newcdn.igromania.ru/mnt/news/e/b/b/c/5/3/94874/11cb9581682bf7f5_original.jpg" alt="Пейзаж Незера" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="2">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Ад (Незер)</h3>
+                        <p>Горячее измерение, наполненное монстрами, лавой и редким лутом. Осторожно, Гасты!</p>
+                    </div>
+                </article>
+
+                <article class="image-card" data-category="end">
+                    <div class="card-image">
+                        <img src="https://i.redd.it/ndgwscplo1rd1.jpeg" alt="Остров Эндера" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="3">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Эндер (Край)</h3>
+                        <p>Тысячи островов из эндерняка парят в бесконечно чернеющем пространстве. Дом Дракона Края.</p>
+                    </div>
+                </article>
+
+                <article class="image-card" data-category="overworld">
+                    <div class="card-image">
+                        <img src="https://fs.hotmc.ru/upload/nu/p55rtorqajcqxlawiyiryyzmecnve3qptvkbmipytpv7puc54xswlgtukzhk44i9.png" alt="Деревня в Майнкрафт" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="4">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Деревни и Данжи</h3>
+                        <p>Деревни, храмы и особняки прячутся среди густой листвы. Не забудь проверить сундуки!</p>
+                    </div>
+                </article>
+
+                <article class="image-card" data-category="nether">
+                    <div class="card-image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXoPx8hVHhHCHMUZ3QNS8LcoGtpKyY6zZfKnkp2GLfA&s=10" alt="Багровый лес" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="5">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Багровый лес</h3>
+                        <p>Один из самых безопасных биомов Незера, населенный пиглинами и хоглинами.</p>
+                    </div>
+                </article>
+
+                <article class="image-card" data-category="end">
+                    <div class="card-image">
+                        <img src="https://cdn-m.sport24.ru/m/6563/5695/32d5/4b84/8ed7/e81c/4b38/82f4/1200_10000_max.webp" alt="Город Края" class="gallery-img" loading="lazy">
+                        <div class="image-overlay">
+                            <button class="like-btn" data-id="6">❤ <span class="like-count">0</span></button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Города Края</h3>
+                        <p>Древние сооружения с кораблями, где можно найти элитры и ценный лут.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- модалка история версий -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content text-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">История версий Minecraft</h2>
+                <span class="close-modal" onclick="closeModal('historyModal')">&times;</span>
+            </div>
+            <div class="content-block">
+                <p style="margin-bottom: 20px;">Minecraft прошел долгий путь от простого инди-проекта до самой продаваемой игры в истории. Вот ключевые вехи его развития:</p>
+                <ul class="version-timeline">
+                    <li>
+                        <strong>2009: Classic и Indev</strong>
+                        Самые первые версии игры, созданные Маркусом Перссоном (Notch). Появились базовые механики размещения и разрушения блоков, а также первый режим выживания с ограниченным инвентарем.
+                    </li>
+                    <li>
+                        <strong>2010: Alpha и Beta</strong>
+                        Добавлены ключевые элементы: Нижний мир (Незер), красный камень, лодки, вагонетки, режим хардкора и достижения. Бета-версия заложила фундамент будущего геймплея.
+                    </li>
+                    <li>
+                        <strong>2011: Официальный релиз (Версия 1.0)</strong>
+                        Выпуск во время MineCon 2011. Добавлено измерение Эндер, Дракон Края, зельеварение, зачарование и деревни жителей.
+                    </li>
+                    <li>
+                        <strong>2013: Версия 1.6 "Horse Update"</strong>
+                        В игру добавлены лошади, ослы, мулы, поводки, блоки угля и хардклавая глина.
+                    </li>
+                    <li>
+                        <strong>2014: Версия 1.8 "Bountiful Update"</strong>
+                        Масштабное обновление: добавлены океанские монументы, стражи, кролики, знамена, командные блоки и режим наблюдателя.
+                    </li>
+                    <li>
+                        <strong>2016: Версия 1.9 "Combat Update"</strong>
+                        Полная переработка боевой системы: добавлена атака с задержкой (кулдаун), щиты, элитры, города Края и шалкеровые ящики.
+                    </li>
+                    <li>
+                        <strong>2019: Версия 1.14 "Village & Pillage"</strong>
+                        Полное обновление деревень: новые профессии жителей, рейды, разбойники, лисы, панды и новые типы древесины.
+                    </li>
+                    <li>
+                        <strong>2021: Версия 1.17 и 1.18 "Caves & Cliffs"</strong>
+                        Глобальная генерация мира: высота мира увеличена до 320 блоков, добавлены пышные и карстовые пещеры, аксолотли, козлы и новые руды (медь, аметист).
+                    </li>
+                    <li>
+                        <strong>2022: Версия 1.19 "The Wild Update"</strong>
+                        Добавлены мангровые болота, древние города (Deep Dark), варден, лягушки и аллай.
+                    </li>
+                    <li>
+                        <strong>2023-2024: Версии 1.20 "Trails & Tales" и новее</strong>
+                        Археология, вишневые рощи, верблюды, снифферы, бамбуковое дерево и новые декоративные блоки для творчества.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- топ игр -->
+    <div id="topGamesModal" class="modal">
+        <div class="modal-content text-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Топ игр по вселенной</h2>
+                <span class="close-modal" onclick="closeModal('topGamesModal')">&times;</span>
+            </div>
+            <div class="content-block">
+                <ul class="features-list">
+                    <li class="feature-item"><strong>Minecraft (Java & Bedrock):</strong> Оригинальная песочница, с которой всё началось.</li>
+                    <li class="feature-item"><strong>Minecraft Dungeons:</strong> Динамичная приключенческая игра в жанре Action/RPG во вселенной Майнкрафт.</li>
+                    <li class="feature-item"><strong>Minecraft Legends:</strong> Стратегия в реальном времени, где вам предстоит возглавить союзников в борьбе с пиглинами.</li>
+                    <li class="feature-item"><strong>Minecraft Education:</strong> Специальная версия для использования в учебных заведениях по всему миру.</li>
+                    <li class="feature-item"><strong>Minecraft Earth (Закрыта):</strong> Дополненная реальность, которая, к сожалению, прекратила свое существование.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            function showSection(sectionId, linkElement) {
+            // скрыть все секции
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // показываем нужную
+            document.getElementById(sectionId).classList.add('active');
+
+            //активный класс
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (linkElement) {
+                linkElement.classList.add('active');
+            }
+            
+            //наверх
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // модалки общ
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function openGalleryModal() {
+            document.getElementById('galleryModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            updateGalleryStats();
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+
+        function updateGalleryStats() {
+            const imageCards = document.querySelectorAll('.image-card:not(.hidden)');
+            const counterElement = document.getElementById('image-counter');
+            if (counterElement) {
+                counterElement.textContent = imageCards.length;
+            }
+        }
+
+        function initGallery() {
+            const imageCards = document.querySelectorAll('.image-card');
+            const totalLikesElement = document.getElementById('total-likes');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            let totalLikes = 0;
+
+            updateGalleryStats();
+
+            document.querySelectorAll('.like-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const countSpan = this.querySelector('.like-count');
+                    let currentLikes = parseInt(countSpan.textContent);
+
+                    if (this.classList.contains('liked')) {
+                        currentLikes--;
+                        totalLikes--;
+                        this.classList.remove('liked');
+                    } else {
+                        currentLikes++;
+                        totalLikes++;
+                        this.classList.add('liked');
+                    }
+
+                    countSpan.textContent = currentLikes;
+                    if (totalLikesElement) {
+                        totalLikesElement.textContent = totalLikes;
+                    }
+
+                    this.style.transform = 'scale(1.2)';
+                    setTimeout(() => { this.style.transform = 'scale(1)'; }, 200);
+                });
+            });
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filterValue = this.getAttribute('data-filter');
+                    let visibleCount = 0;
+
+                    imageCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+
+                    document.getElementById('image-counter').textContent = visibleCount;
+                });
+            });
+        }
+
+            function initContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            if (!contactForm) return;
+
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const agreement = document.getElementById('agreement').checked;
+
+                if (name && email && agreement) {
+                    alert(`Спасибо, ${name}! Ваше сообщение успешно отправлено (демо-режим). Я отвечу на ${email} в ближайшее время.`);
+                    contactForm.reset();
+                } else {
+                    alert('Пожалуйста, заполните все обязательные поля и дайте согласие на обработку данных.');
+                }
+            });
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Сайт о Майнкрафт загружен!');
+            initGallery();
+            initContactForm();
+            
+            const features = document.querySelectorAll('.feature-item');
+            features.forEach((item, index) => {
+                item.style.animation = `fadeIn 0.5s ease ${index * 0.1}s forwards`;
+                item.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>
